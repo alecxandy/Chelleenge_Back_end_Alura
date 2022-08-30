@@ -5,7 +5,6 @@ import br.com.alexandre.Desafio.Back.end.repository.ReceitasRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.nio.file.OpenOption;
 import java.util.List;
 import java.util.Optional;
 
@@ -13,7 +12,11 @@ import java.util.Optional;
 public class ReceitaService {
 
     @Autowired
-    private ReceitasRepository receitasRepository;
+    private final ReceitasRepository receitasRepository;
+
+    public ReceitaService(ReceitasRepository receitasRepository) {
+        this.receitasRepository = receitasRepository;
+    }
 
     public Receitas save(Receitas receitas) {
         return receitasRepository.save(receitas);
@@ -30,5 +33,10 @@ public class ReceitaService {
     public void delete(Long id) {
         receitasRepository.deleteById(id);
     }
+
+    public List<Receitas> findByDescricao(String descricao) {
+        return receitasRepository.descricao(descricao);
+    }
+
 
 }

@@ -1,19 +1,16 @@
 package br.com.alexandre.Desafio.Back.end.domain;
-
+import br.com.alexandre.Desafio.Back.end.util.CategoriasEnum;
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Date;
 
-@Data
-@EqualsAndHashCode
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
+@Data
 @Getter
 @Setter
+@EqualsAndHashCode
 @Entity
 public class Despesas {
 
@@ -24,4 +21,7 @@ public class Despesas {
     private double valor;
     private Date data;
 
+
+    @Enumerated(EnumType.STRING)
+    private CategoriasEnum categoriasEnum;
 }

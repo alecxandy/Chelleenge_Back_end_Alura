@@ -12,7 +12,11 @@ import java.util.Optional;
 public class DespesasService {
 
     @Autowired
-    private DespesasRepository despesasRepository;
+    private final DespesasRepository despesasRepository;
+
+    public DespesasService(DespesasRepository despesasRepository) {
+        this.despesasRepository = despesasRepository;
+    }
 
     public Despesas save(Despesas despesas) {
         return despesasRepository.save(despesas);
@@ -29,4 +33,8 @@ public class DespesasService {
     public void delete(Long id) {
         despesasRepository.deleteById(id);
     }
+    public List<Despesas> findByDescricao(String descricao) {
+        return despesasRepository.descricao(descricao);
+    }
+
 }

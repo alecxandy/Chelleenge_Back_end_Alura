@@ -2,15 +2,16 @@ package br.com.alexandre.Desafio.Back.end.controller;
 
 import br.com.alexandre.Desafio.Back.end.domain.Despesas;
 import br.com.alexandre.Desafio.Back.end.service.DespesasService;
-import com.sun.tools.javac.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
-@RestController("/despesas")
+@RestController
+@RequestMapping("/despesas")
 public class DespesasController {
 
     @Autowired
@@ -18,7 +19,12 @@ public class DespesasController {
 
     @PostMapping("/save")
     public ResponseEntity<Despesas> save(@RequestBody Despesas despesas) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(despesasService.save(despesas));
+        List<Despesas> despesasList = findBydescricao(despesas.getDescricao());
+        if (despesasList.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.CREATED).body(despesasService.save(despesas));
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
     }
 
     @PutMapping("/update")
@@ -33,9 +39,9 @@ public class DespesasController {
 
     @GetMapping("/list")
     public ResponseEntity<List<Despesas>> list() {
-        List<Despesas> despesasList = (List<Despesas>) despesasService.findAll();
+        List<Despesas> despesasList = despesasService.findAll();
         if (despesasList.isEmpty()) {
-            return ResponseEntity.notFound().build();
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
         } else {
             return ResponseEntity.ok(despesasList);
         }
@@ -62,5 +68,8 @@ public class DespesasController {
         }
     }
 
-
+    @GetMapping("/descricao")
+    public List<Despesas> findBydescricao(String descricao) {
+        return despesasService.findByDescricao(descricao);
+    }
 }

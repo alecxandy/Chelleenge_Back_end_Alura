@@ -1,7 +1,6 @@
 package br.com.alexandre.Desafio.Back.end.domain;
 
 import lombok.*;
-import org.springframework.web.bind.annotation.GetMapping;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
