@@ -2,21 +2,16 @@ package br.com.alexandre.Desafio.Back.end.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
-import org.springframework.format.annotation.DateTimeFormat;
+import org.hibernate.Hibernate;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.Date;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
+@ToString
 @Getter
 @Setter
-@EqualsAndHashCode
 @Entity
 public class Receitas {
 
@@ -25,7 +20,25 @@ public class Receitas {
     private long id;
     private String descricao;
     private double valor;
+
+    //@DateTimeFormat(pattern = "yyyy-MM-dd")
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate date;
 
+    @JoinColumn(nullable = false,name = "usuarioReceita_id")
+    @ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+    private Usuario usuario;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        Receitas receitas = (Receitas) o;
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
 }
