@@ -1,20 +1,22 @@
 package br.com.alexandre.Desafio.Back.end.domain;
 
-import java.util.List;
-
 import br.com.alexandre.Desafio.Back.end.constraints.PlacaDeCarro;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.validator.constraints.br.CPF;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
+import java.util.List;
+import java.util.UUID;
 
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-
 public class Usuario {
 
     @Id
@@ -24,7 +26,8 @@ public class Usuario {
     @NotBlank(message = "Campo não informado")//tem que ser preenchido
     @NotNull//nao nulo
     @Max(value = 50, message = "Ultrapassou o limite de caracteres")//maximo de caracteres
-    @Pattern(regexp = "^[A-Z]+(.)*", message = "Campo precisa comerçar com letra maiuscula")//Primeira letra do nome maiuscula
+    @Pattern(regexp = "^[A-Z]+(.)*", message = "Campo precisa comerçar com letra maiuscula")
+    //Primeira letra do nome maiuscula
     private String nome;
 
     @Email(message = "Campo invalid!")
