@@ -10,7 +10,6 @@ import java.util.UUID;
 
 @Entity
 public class UserModel implements UserDetails, Serializable {
-
     private static final long serialVersionUID = 1L;
 
     @Id
