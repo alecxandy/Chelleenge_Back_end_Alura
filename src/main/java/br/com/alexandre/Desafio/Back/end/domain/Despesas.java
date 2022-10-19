@@ -24,7 +24,7 @@ public class Despesas {
 
     @JoinColumn(name = "usuarioDespesa_id", nullable = false)//associando a coluna e não nula
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private Usuario usuario;
+    private Usuario usuario;    
 
     //@DateTimeFormat(pattern = "yyyy-MM-dd")
     @JsonFormat(pattern = "yyyy-MM-dd")
@@ -35,7 +35,7 @@ public class Despesas {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
+            if (this == o) return true;
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
         Despesas despesas = (Despesas) o;
         return false;
